@@ -28,6 +28,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -156,7 +160,8 @@ public class Home extends Fragment {
             } else {
                 //Adds Cards to screen
                 recycleAdapter = new CustomRecycleAdapter(context, stats);
-                cardHolder.setAdapter(recycleAdapter);
+                AlphaInAnimationAdapter adapter = new AlphaInAnimationAdapter(recycleAdapter);
+                cardHolder.setAdapter(new SlideInBottomAnimationAdapter(adapter));
             }
         }
 
