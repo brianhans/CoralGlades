@@ -70,12 +70,9 @@ public class Home extends Fragment {
             startActivity(intent);
         }else{
             accounts = new ArrayList(pref.getStringSet("users", null));
-            if(false){
+            if(isNetworkConnected(context)){
                 GetUserTimeline getTweets = new GetUserTimeline();
                 getTweets.execute(accounts);
-            }else{
-                InternetTwitter fragment = new InternetTwitter();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }
         }
 
@@ -154,6 +151,8 @@ public class Home extends Fragment {
             loadingSpinner.setVisibility(View.GONE);
             if (stats == null) {
                 //Displays web version of twitter feed
+                InternetTwitter fragment = new InternetTwitter();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             } else {
                 //Adds Cards to screen
                 recycleAdapter = new CustomRecycleAdapter(context, stats);
