@@ -68,12 +68,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_height="300dp"
                     android:layout_width="wrap_content"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"/>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_height="300dp"
+                    android:layout_width="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_height="300dp"
+                    android:layout_width="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_height="300dp"
+                    android:layout_width="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:visibility="gone"/>
             </LinearLayout>
         </ScrollView>
 

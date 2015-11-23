@@ -51,19 +51,36 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int i) {
         Status tweet = tweetList.get(i);
-        MediaEntity[] images = tweet.getMediaEntities();
+        //MediaEntity[] images = tweet.getMediaEntities();
+        MediaEntity[] images = tweet.getExtendedMediaEntities();
 
         new DownloadImage(holder.profilePicture).execute(tweet.getUser().getBiggerProfileImageURL());
 
 
         if (images.length > 0) {
-            Log.d("Media", "Amount: " + images.length + " " + images[0].getMediaURL());
+            Log.d("Media", "Amount: " + images.length + " " + images[0].getMediaURL() + " Extended" + images.length);
             //new DownloadImage(holder.imageView).execute(images[0].getMediaURL());
             Uri uri = Uri.parse(images[0].getMediaURL());
             Glide.with(context).load(uri).into(holder.imageView);
-            holder.imageView.setVisibility(View.VISIBLE);
+            holder.imageHolder.setVisibility(View.VISIBLE);
+
+          /*  if(images.length> 1){
+                Log.d("Extended Url", images[1].getMediaURL());
+                Uri uri2 = Uri.parse(images[1].getMediaURL());
+                Glide.with(context).load(uri2).into(holder.imageView2);
+                holder.imageView2.setVisibility(View.VISIBLE);
+            }else if(images.length > 2){
+                Uri uri3 = Uri.parse(images[2].getMediaURL());
+                Glide.with(context).load(uri3).into(holder.imageView3);
+                holder.imageView3.setVisibility(View.VISIBLE);
+            }else if (images.length > 3){
+                Uri uri4 = Uri.parse(images[3].getMediaURL());
+                Glide.with(context).load(uri4).into(holder.imageView4);
+                holder.imageView4.setVisibility(View.VISIBLE);
+            }
+            */
         }else{
-            holder.imageView.setVisibility(View.GONE);
+            holder.imageHolder.setVisibility(View.GONE);
         }
 
         holder.tweetText.setText(tweet.getText());
@@ -84,6 +101,9 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         ImageView profilePicture;
         LinearLayout imageHolder;
         ImageView imageView;
+        ImageView imageView2;
+        ImageView imageView3;
+        ImageView imageView4;
 
         MyViewHolder(View itemView) {
             super(itemView);
@@ -94,6 +114,9 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
             userName = (TextView) itemView.findViewById(R.id.user);
             imageHolder = (LinearLayout) itemView.findViewById(R.id.imageHolder);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
+            imageView3 = (ImageView) itemView.findViewById(R.id.imageView3);
+            imageView4 = (ImageView) itemView.findViewById(R.id.imageView4);
         }
     }
 
