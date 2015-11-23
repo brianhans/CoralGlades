@@ -9,7 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,9 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
-import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -73,15 +73,39 @@ public class Home extends Fragment {
             Intent intent = new Intent(getActivity(), UserSelect.class);
             startActivity(intent);
         }else{
-            accounts = new ArrayList(pref.getStringSet("users", null));
-            if(isNetworkConnected(context)){
-                GetUserTimeline getTweets = new GetUserTimeline();
-                getTweets.execute(accounts);
-            }
+            loadFeed();
         }
 
+        SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe);
+        refreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadFeed();
+            }
+        });
 
     }
+
+    private void loadFeed(){
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getView().findViewById(R.id.swipe);
+
+        accounts = new ArrayList(pref.getStringSet("users", null));
+        if(isNetworkConnected(context)) {
+            GetUserTimeline getTweets = new GetUserTimeline();
+            getTweets.execute(accounts);
+        }else{
+            Snackbar snackbar = Snackbar.make(refreshLayout, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("RETRY", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadFeed();
+                }
+            });
+            snackbar.show();
+        }
+    }
+
 
     private boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -162,6 +186,12 @@ public class Home extends Fragment {
                 recycleAdapter = new CustomRecycleAdapter(context, stats);
                 AlphaInAnimationAdapter adapter = new AlphaInAnimationAdapter(recycleAdapter);
                 cardHolder.setAdapter(new SlideInBottomAnimationAdapter(adapter));
+
+                //Stops refreshing
+                SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getView().findViewById(R.id.swipe);
+                if(refreshLayout.isRefreshing()){
+                    refreshLayout.setRefreshing(false);
+                }
             }
         }
 
