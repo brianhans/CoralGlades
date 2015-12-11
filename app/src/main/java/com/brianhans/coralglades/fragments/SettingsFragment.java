@@ -24,12 +24,6 @@ import java.util.Set;
  */
 public class SettingsFragment extends PreferenceFragment {
 
-    private CheckBoxPreference principal;
-    private CheckBoxPreference sga;
-    private CheckBoxPreference track;
-    private CheckBoxPreference engineering;
-    private CheckBoxPreference bannerless;
-    private CheckBoxPreference nopictures;
     private Resources res;
     private String[] name;
     private String[] account;
@@ -39,12 +33,6 @@ public class SettingsFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.layout.settings_pref);
-        principal = (CheckBoxPreference) findPreference("principal");
-        sga = (CheckBoxPreference) findPreference("sga");
-        track = (CheckBoxPreference) findPreference("track");
-        engineering = (CheckBoxPreference) findPreference("engineering");
-        bannerless = (CheckBoxPreference) findPreference("bannerless");
-        nopictures = (CheckBoxPreference) findPreference("nopictures");
 
     }
 
@@ -86,8 +74,7 @@ public class SettingsFragment extends PreferenceFragment {
         editor.putStringSet("users", selected);
 
         editor.commit();
-        //home.backgroundPicture = new Bitmap[account.length];
-        //home.profilePicture = new Bitmap[account.length];
+
         super.onPause();
     }
 }

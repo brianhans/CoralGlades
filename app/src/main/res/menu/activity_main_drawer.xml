@@ -14,13 +14,11 @@
             android:title="Virtual Counselor"/>
     </group>
 
-    <item android:title="">
-        <menu>
+    <group android:id="@+id/settings">
             <item android:id="@+id/nav_about" android:icon="@drawable/help"
                 android:title="About" />
             <item android:id="@+id/nav_settings" android:icon="@drawable/settings"
                 android:title="Settings" />
-        </menu>
-    </item>
+    </group>
 
 </menu>
