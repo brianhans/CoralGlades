@@ -116,7 +116,6 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
             super(itemView);
             tweetText = (TextView) itemView.findViewById(R.id.tweet_text);
             date = (TextView) itemView.findViewById(R.id.date);
-            link = (TextView) itemView.findViewById(R.id.tweet_link);
             profilePicture = (ImageView) itemView.findViewById(R.id.profile_picture);
             userName = (TextView) itemView.findViewById(R.id.user);
             imageHolder = (LinearLayout) itemView.findViewById(R.id.imageHolder);

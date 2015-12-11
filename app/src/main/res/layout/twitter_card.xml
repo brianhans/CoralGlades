@@ -50,13 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text="tweet message" />
-
-        <TextView
-            android:id="@+id/tweet_link"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp" />
+            android:text="tweet message"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:textColorLink="@color/colorPrimary"/>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
