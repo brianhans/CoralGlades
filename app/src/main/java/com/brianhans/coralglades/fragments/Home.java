@@ -159,6 +159,7 @@ public class Home extends Fragment {
                     return null;
                 }
                 for (String user : users) {
+                    Log.d("user", user);
                     List<twitter4j.Status> tweets = twitter.getUserTimeline(user);
                     tweetList.add(tweets);
                 }

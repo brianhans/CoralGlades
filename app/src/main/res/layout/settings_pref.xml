@@ -9,11 +9,6 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="bannerless"
-            android:title="Show Banner" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
             android:key="nopictures"
             android:title="Display Pictures" />
 

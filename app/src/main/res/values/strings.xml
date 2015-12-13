@@ -58,18 +58,84 @@
 
     <string-array name="name">
         <item>Mr.Carruth</item>
+        <item>Mrs.Ferrand</item>
+        <item>Ms.Stein</item>
+        <item>Guidance</item>
+        <item>Athletics</item>
         <item>Track and Field</item>
+        <item>Baseball</item>
+        <item>Girl\'s Soccer</item>
+        <item>Boy\'s Basketball</item>
+        <item>Football</item>
+        <item>Girl\'s Volleyball</item>
+        <item>Class of 2016</item>
+        <item>Class of 2017</item>
+        <item>Class of 2018</item>
+        <item>Coral Glades Imprint</item>
+        <item>DECA</item>
+        <item>HOSA</item>
         <item>SGA</item>
-        <item>Engineering</item>
+        <item>Music Association</item>
+        <item>Color Guard</item>
+        <item>Jaguar Singers</item>
+        <item>Peer Pals</item>
+        <item>CGHS Spanish Club</item>
+        <item>Spirit Club</item>
+        <item>Health and Fitness</item>
         <item>National Honor Society</item>
+        <item>Key Club</item>
+        <item>Drama</item>
+        <item>Student Involvement Committee</item>
+        <item>Ultimate Nerd Coalition</item>
+        <item>WJAGTV</item>
+        <item>The Prowl</item>
+        <item>Mr.McCabe</item>
+        <item>Mr.Goldfinger</item>
+        <item>Ms.Monroe</item>
+        <item>Mrs.Schoen</item>
+        <item>Ms.Furst</item>
+        <item>Mrs.Plass</item>
     </string-array>
 
     <string-array name="username">
         <item>principalCGHS</item>
+        <item>CGHS_BRACE</item>
+        <item>Michelestein17</item>
+        <item>GuidanceCGHS</item>
+        <item>athleticscghs</item>
         <item>jagstrack</item>
-        <item>CGHS_SGA</item>
-        <item>CGHSEngineering</item>
+        <item>GladesBaseball_</item>
+        <item>GladesSoccer</item>
+        <item>CGHSbasketball</item>
+        <item>footballcghs</item>
+        <item>CghsVball</item>
+        <item>coralglades2016</item>
+        <item>Cghsco17</item>
+        <item>cghs2018</item>
+        <item>CGimprint</item>
+        <item>cghsdeca</item>
+        <item>CGHS_HOSA</item>
+        <item>CoralGladesSGA</item>
+        <item>cghsMA</item>
+        <item>GladesGuard</item>
+        <item>CGHS_SINGERS</item>
+        <item>cghspeerpalz</item>
+        <item>CghsSpanish</item>
+        <item>CghsSpirit</item>
+        <item>CghsHealthAF</item>
         <item>NHSCGHS</item>
+        <item>GladesKeyClub</item>
+        <item>GladesDrama</item>
+        <item>CghsSic</item>
+        <item>CoralGladesUNC</item>
+        <item>WJAGTV</item>
+        <item>CGHSTheProwl</item>
+        <item>mccabealgebra</item>
+        <item>DrewGoldfinger</item>
+        <item>msmoore_reading</item>
+        <item>tammy_schoen</item>
+        <item>sfurstt</item>
+        <item>LPlass</item>
     </string-array>
 
 
