@@ -18,13 +18,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.brianhans.coralglades.CustomComparator;
 import com.brianhans.coralglades.R;
 import com.brianhans.coralglades.CustomRecycleAdapter;
 import com.brianhans.coralglades.UserSelect;
-import com.brianhans.coralglades.views.InternetTwitter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -180,6 +180,7 @@ public class Home extends Fragment {
             loadingSpinner.setVisibility(View.GONE);
             if (stats == null) {
                 //Displays web version of twitter feed
+                cardHolder.removeAllViewsInLayout();
                 InternetTwitter fragment = new InternetTwitter();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             } else {
