@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.brianhans.coralglades.fragments.Home;
 import com.brianhans.coralglades.fragments.Internet;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here
         int id = item.getItemId();
+        findViewById(R.id.tab_layout).setVisibility(View.GONE);
 
         if (id == R.id.nav_home) {
             Home home = new Home();

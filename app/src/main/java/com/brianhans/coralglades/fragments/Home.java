@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -44,7 +45,6 @@ import twitter4j.conf.ConfigurationBuilder;
 public class Home extends Fragment {
 
     private ArrayList<String> accounts;
-    private ProgressBar loadingSpinner;
     private RecyclerView cardHolder;
     private CustomRecycleAdapter recycleAdapter;
     private Context context;
@@ -60,7 +60,6 @@ public class Home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         context = getContext();
-        loadingSpinner = (ProgressBar) getView().findViewById(R.id.loading_spinner);
         cardHolder = (RecyclerView) getView().findViewById(R.id.card_holder);
         cardHolder.setLayoutManager(new LinearLayoutManager(context));
         cardHolder.setHasFixedSize(true);
@@ -133,8 +132,6 @@ public class Home extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("View", getView().toString());
-            ProgressBar loadingSpinner = (ProgressBar) getView().findViewById(R.id.loading_spinner);
-            loadingSpinner.setVisibility(View.VISIBLE);
         }
 
         protected List<twitter4j.Status> doInBackground(List<String>... params) {
@@ -177,13 +174,16 @@ public class Home extends Fragment {
 
         protected void onPostExecute(List<twitter4j.Status> stats) {
 
-            loadingSpinner.setVisibility(View.GONE);
             if (stats == null) {
                 //Displays web version of twitter feed
                 cardHolder.removeAllViewsInLayout();
                 InternetTwitter fragment = new InternetTwitter();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                CoordinatorLayout mMainLayout = (CoordinatorLayout) getActivity().findViewById(R.id.main_layout);
+                Snackbar snackbar =  Snackbar.make(mMainLayout, "Out of API Calls", Snackbar.LENGTH_LONG);
+                snackbar.show();
             } else {
+                cardHolder.setVisibility(View.VISIBLE);
                 //Adds Cards to screen
                 recycleAdapter = new CustomRecycleAdapter(context, stats);
                 AlphaInAnimationAdapter adapter = new AlphaInAnimationAdapter(recycleAdapter);
