@@ -152,7 +152,6 @@ public class Home extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.d("View", getView().toString());
         }
 
         protected List<twitter4j.Status> doInBackground(List<String>... params) {
