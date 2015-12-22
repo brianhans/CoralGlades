@@ -79,7 +79,7 @@ public class UserSelect extends AppCompatActivity implements ScrollViewListener 
             public void onClick(View v) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
                 editor = prefs.edit();
-                Set<String> users = new HashSet<>();
+                HashSet<String> users = new HashSet<>();
                 for(int i = 0; i < account.length; i++)
                 {
                     Log.d("checkbox", i + ": " + checkBoxes[i].isChecked());
@@ -89,6 +89,9 @@ public class UserSelect extends AppCompatActivity implements ScrollViewListener 
                     }
                 }
                 editor.putStringSet("users", users);
+                for(String user : users){
+                    Log.d("checkbox", user);
+                }
                 editor.putBoolean("firstrun", false);
                 editor.commit();
 

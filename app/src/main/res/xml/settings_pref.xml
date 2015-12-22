@@ -9,8 +9,13 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="nopictures"
+            android:key="pictures"
             android:title="Display Pictures" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="webpage"
+            android:title="Use Webpages"
+            />
 
     </PreferenceCategory>
 </PreferenceScreen>

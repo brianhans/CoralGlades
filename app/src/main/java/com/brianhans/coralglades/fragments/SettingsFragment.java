@@ -28,12 +28,15 @@ public class SettingsFragment extends PreferenceFragment {
     private String[] name;
     private String[] account;
     private List<String> users;
+    private CheckBoxPreference pictures;
+    private CheckBoxPreference internet;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.layout.settings_pref);
-
+        addPreferencesFromResource(R.xml.settings_pref);
+        pictures = (CheckBoxPreference) findPreference("pictures");
+        internet = (CheckBoxPreference) findPreference("webpage");
     }
 
     @Override
@@ -45,18 +48,23 @@ public class SettingsFragment extends PreferenceFragment {
         account = res.getStringArray(R.array.username);
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        users = new ArrayList<>(pref.getStringSet("users", null));
+
+        Set<String> users = pref.getStringSet("users", null);
         PreferenceCategory following = (PreferenceCategory) findPreference("following");
 
         for (int i = 0; i < account.length; i++) {
             CheckBoxPreference checkBoxPreference = new CheckBoxPreference(getActivity());
             checkBoxPreference.setDefaultValue(false);
-            if (users.contains(account[i]))checkBoxPreference.setChecked(true);
             checkBoxPreference.setKey(account[i]);
             checkBoxPreference.setTitle(name[i]);
             following.addPreference(checkBoxPreference);
+
+            if (users.contains(account[i])){
+                checkBoxPreference.setChecked(true);
+            }
         }
     }
+
 
     @Override
     public void onPause() {
@@ -72,6 +80,9 @@ public class SettingsFragment extends PreferenceFragment {
         }
 
         editor.putStringSet("users", selected);
+        editor.putBoolean("pictures", pictures.isChecked());
+        editor.putBoolean("webpage", internet.isChecked());
+
 
         editor.commit();
 

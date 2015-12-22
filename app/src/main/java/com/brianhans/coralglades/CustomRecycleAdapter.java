@@ -2,10 +2,12 @@ package com.brianhans.coralglades;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +23,7 @@ import com.bumptech.glide.Glide;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -37,12 +40,15 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
     private List<Status> tweetList;
     private Context context;
     private Hashtable<String, Bitmap> downloadedImages = new Hashtable<>();
+    private boolean pictures;
 
 
     public CustomRecycleAdapter(Context context, List<Status> tweetList) {
         this.context = context;
         this.tweetList = tweetList;
         scale = context.getResources().getDisplayMetrics().density;
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        pictures = pref.getBoolean("pictures", true);
     }
 
 
@@ -62,7 +68,7 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         Log.d("Media", images.length + "");
 
 
-        if (images.length > 0) {
+        if (pictures && images.length > 0) {
 
             holder.imageHolder.setVisibility(View.VISIBLE);
             holder.imageHolder.removeAllViewsInLayout();
@@ -95,7 +101,10 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
 
         holder.tweetText.setText(tweet.getText());
 
-        holder.date.setText(tweet.getCreatedAt().toString());
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String date = dateFormat.format(tweet.getCreatedAt());
+        holder.date.setText(date);
+
         holder.userName.setText(tweet.getUser().getName());
     }
 

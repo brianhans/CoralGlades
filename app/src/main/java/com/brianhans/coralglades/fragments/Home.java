@@ -48,6 +48,7 @@ public class Home extends Fragment {
     private RecyclerView cardHolder;
     private CustomRecycleAdapter recycleAdapter;
     private Context context;
+    private boolean webpage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class Home extends Fragment {
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         boolean firstRun = pref.getBoolean("firstrun", true);
+
+        webpage = pref.getBoolean("webpage", false);
 
         //Runs user select if the program is run for the first time.
         if (firstRun) {
@@ -92,8 +95,14 @@ public class Home extends Fragment {
 
         accounts = new ArrayList(pref.getStringSet("users", null));
         if(isNetworkConnected(context)) {
-            GetUserTimeline getTweets = new GetUserTimeline();
-            getTweets.execute(accounts);
+            if(webpage){
+                cardHolder.removeAllViewsInLayout();
+                InternetTwitter fragment = new InternetTwitter();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            }else {
+                GetUserTimeline getTweets = new GetUserTimeline();
+                getTweets.execute(accounts);
+            }
         }else{
             Snackbar snackbar = Snackbar.make(refreshLayout, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("RETRY", new View.OnClickListener() {
                 @Override

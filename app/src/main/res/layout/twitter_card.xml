@@ -12,75 +12,88 @@
     android.support.v7.cardview:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:background="#FFFFFF">
-
-        <ImageView
-            android:id="@+id/profile_picture"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginLeft="2.5dp"
-            android:layout_marginRight="2.5dp"
-            android:layout_marginTop="2.5dp"
-            android:scaleType="centerCrop" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="90dp"
-            android:layout_marginTop="60dp"
-            android:gravity="right"
-            android:text="User"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tweet_text"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="tweet message"
-            android:autoLink="web"
-            android:linksClickable="true"
-            android:textColorLink="@color/colorPrimary"/>
+            android:layout_height="80dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:gravity="right">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/imageHolder"
+            <TextView
+                android:id="@+id/user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="right">
+                android:layout_gravity="right|bottom"
+                android:gravity="right"
+                android:text="User"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
+            <ImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
 
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <TextView
-            android:id="@+id/date"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="5dp"
-            android:text="Date"
-            android:textSize="10sp" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tweet_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:text="tweet message"
+                android:textColorLink="@color/colorPrimary" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <LinearLayout
+                    android:id="@+id/imageHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Date"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
