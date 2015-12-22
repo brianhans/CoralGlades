@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.brianhans.coralglades.CustomComparator;
@@ -147,11 +148,14 @@ public class Home extends Fragment {
         final static String ACCESS_SECRET = "OB1XrZCxWUK17EIIuTZ0QsERFWCK3zwgTF9detGALssvI";
 
         List<String> users = new ArrayList<>();
-
+        RelativeLayout loadingSpinner = (RelativeLayout) getActivity().findViewById(R.id.loading_circle);
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            cardHolder.removeAllViewsInLayout();
+            cardHolder.setVisibility(View.GONE);
+            loadingSpinner.setVisibility(View.VISIBLE);
         }
 
         protected List<twitter4j.Status> doInBackground(List<String>... params) {
@@ -193,6 +197,8 @@ public class Home extends Fragment {
         }
 
         protected void onPostExecute(List<twitter4j.Status> stats) {
+
+            loadingSpinner.setVisibility(View.GONE);
 
             if (stats == null) {
                 //Displays web version of twitter feed
