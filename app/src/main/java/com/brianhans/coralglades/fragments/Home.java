@@ -131,6 +131,13 @@ public class Home extends Fragment {
             return true;
     }
 
+    public void stopRefreshing() {
+        SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe);
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
+    }
+
 
     private class GetUserTimeline extends AsyncTask<List<String>, Void, List<Status>> {
 
@@ -191,23 +198,20 @@ public class Home extends Fragment {
             if (stats == null) {
                 //Displays web version of twitter feed
                 cardHolder.removeAllViewsInLayout();
+                stopRefreshing();
                 InternetTwitter fragment = new InternetTwitter();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 CoordinatorLayout mMainLayout = (CoordinatorLayout) getActivity().findViewById(R.id.main_layout);
                 Snackbar snackbar =  Snackbar.make(mMainLayout, "Out of API Calls", Snackbar.LENGTH_LONG);
                 snackbar.show();
             } else {
+                cardHolder.removeAllViewsInLayout();
                 cardHolder.setVisibility(View.VISIBLE);
                 //Adds Cards to screen
                 recycleAdapter = new CustomRecycleAdapter(context, stats);
                 AlphaInAnimationAdapter adapter = new AlphaInAnimationAdapter(recycleAdapter);
                 cardHolder.setAdapter(new SlideInBottomAnimationAdapter(adapter));
-
-                //Stops refreshing
-                SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getView().findViewById(R.id.swipe);
-                if(refreshLayout.isRefreshing()){
-                    refreshLayout.setRefreshing(false);
-                }
+                stopRefreshing();
             }
         }
 

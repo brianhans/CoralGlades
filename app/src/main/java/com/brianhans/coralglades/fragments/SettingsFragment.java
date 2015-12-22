@@ -1,5 +1,6 @@
 package com.brianhans.coralglades.fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.View;
 
+import com.brianhans.coralglades.MainActivity;
 import com.brianhans.coralglades.R;
 
 import java.util.HashSet;
@@ -27,6 +29,7 @@ public class SettingsFragment extends PreferenceFragment {
     private List<String> users;
     private CheckBoxPreference pictures;
     private CheckBoxPreference internet;
+    private boolean initalWebpage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class SettingsFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.settings_pref);
         pictures = (CheckBoxPreference) findPreference("pictures");
         internet = (CheckBoxPreference) findPreference("webpage");
+
     }
 
     @Override
@@ -60,6 +64,12 @@ public class SettingsFragment extends PreferenceFragment {
                 checkBoxPreference.setChecked(true);
             }
         }
+
+        initalWebpage = pref.getBoolean("webpage", false);
+
+        internet.setChecked(pref.getBoolean("webpage", false));
+        pictures.setChecked(pref.getBoolean("pictures", true));
+
     }
 
 
@@ -82,6 +92,11 @@ public class SettingsFragment extends PreferenceFragment {
 
 
         editor.commit();
+
+        if (initalWebpage != internet.isChecked()) {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+        }
 
         super.onPause();
     }
