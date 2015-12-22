@@ -19,6 +19,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.brianhans.coralglades.CustomComparator;
 import com.brianhans.coralglades.R;
@@ -47,17 +50,22 @@ public class Home extends Fragment {
     private CustomRecycleAdapter recycleAdapter;
     private Context context;
     private boolean webpage;
+    private WebView webView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home, container, false);
+        setRetainInstance(true);
         return view;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        webView = new WebView(getContext());
+        webView.setWebViewClient(new Browser());
         context = getContext();
         cardHolder = (RecyclerView) getView().findViewById(R.id.card_holder);
         cardHolder.setLayoutManager(new LinearLayoutManager(context));
@@ -122,7 +130,6 @@ public class Home extends Fragment {
         } else
             return true;
     }
-
 
 
     private class GetUserTimeline extends AsyncTask<List<String>, Void, List<Status>> {
@@ -219,5 +226,14 @@ public class Home extends Fragment {
         }
 
 
+    }
+
+    private class Browser extends WebViewClient {
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
     }
 }

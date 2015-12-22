@@ -47,6 +47,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.brianhans.coralglades.UserSelect" />
         </activity>
+        <activity
+            android:name=".CustomBrowser"
+            android:label="@string/browser"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.brianhans.coralglades.CustomBrowser" />
+        </activity>
     </application>
 
 </manifest>

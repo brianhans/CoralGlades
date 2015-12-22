@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.brianhans.coralglades.fragments.Home;
 import com.brianhans.coralglades.fragments.Internet;
@@ -50,6 +52,21 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    public void onUrlClick(final View view) {
+        TextView textView = (TextView) view;
+        String url = getUrl(String.valueOf(textView.getText()));
+        Intent intent = new Intent(this, CustomBrowser.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
+    }
+
+    private String getUrl(String text) {
+
+        int start = text.indexOf("http");
+        return text.substring(start);
+    }
+
 
 
     @SuppressWarnings("StatementWithEmptyBody")

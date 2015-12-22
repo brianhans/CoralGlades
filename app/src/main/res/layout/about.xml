@@ -102,6 +102,14 @@
                             android:layout_marginTop="7dp"
                             android:text="@string/developer"
                             android:textColor="@color/black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/createdWith"
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                 </LinearLayout>
