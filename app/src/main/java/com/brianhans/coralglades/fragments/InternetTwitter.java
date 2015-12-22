@@ -1,10 +1,7 @@
 package com.brianhans.coralglades.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -14,14 +11,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-
-//import com.coralglades.brian.coralglades.MainActivity;
 import com.brianhans.coralglades.R;
-import com.brianhans.coralglades.fragments.Internet;
 
 public class InternetTwitter extends Fragment {
 

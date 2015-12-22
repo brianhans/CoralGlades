@@ -2,9 +2,7 @@ package com.brianhans.coralglades;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.brianhans.coralglades.views.ObservableScrollView;
 import com.brianhans.coralglades.views.ScrollViewListener;

@@ -20,9 +20,7 @@ import android.widget.TextView;
 import com.brianhans.coralglades.views.ObservableScrollView;
 import com.brianhans.coralglades.views.ScrollViewListener;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Brian on 11/29/2014.
