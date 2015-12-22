@@ -204,6 +204,7 @@ public class Home extends Fragment {
                 CoordinatorLayout mMainLayout = (CoordinatorLayout) getActivity().findViewById(R.id.main_layout);
                 Snackbar snackbar =  Snackbar.make(mMainLayout, "Out of API Calls", Snackbar.LENGTH_LONG);
                 snackbar.show();
+                getActivity().findViewById(R.id.back).setVisibility(View.VISIBLE);
             } else {
                 cardHolder.removeAllViewsInLayout();
                 cardHolder.setVisibility(View.VISIBLE);
