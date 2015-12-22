@@ -49,8 +49,7 @@
         </activity>
         <activity
             android:name=".CustomBrowser"
-            android:label="@string/browser"
-            android:parentActivityName=".MainActivity">
+            android:label="@string/browser">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.brianhans.coralglades.CustomBrowser" />
