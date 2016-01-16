@@ -143,9 +143,9 @@ public class Home extends Fragment {
     private class GetUserTimeline extends AsyncTask<List<String>, Void, List<Status>> {
 
         final static String CONSUMER_KEY = "T6rCfkVNRlbZyaaT4VEogAv9C";
-        final static String CONSUMER_SECRET = "pMK5pKidLZJCjxwFeP3G09pspqVWR7hmX3eahLe0URhLZbD4Mv";
+        final static String CONSUMER_SECRET = "************************************************";
         final static String ACCESS_TOKEN = "1239035221-1Ti1dwtyCCkd7hbl9PLLt8I5WEWlHYIwu6qJuDm";
-        final static String ACCESS_SECRET = "OB1XrZCxWUK17EIIuTZ0QsERFWCK3zwgTF9detGALssvI";
+        final static String ACCESS_SECRET = "***********************************************";
 
         List<String> users = new ArrayList<>();
         RelativeLayout loadingSpinner = (RelativeLayout) getActivity().findViewById(R.id.loading_circle);
