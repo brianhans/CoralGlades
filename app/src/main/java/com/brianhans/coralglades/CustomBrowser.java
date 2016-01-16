@@ -18,6 +18,8 @@ public class CustomBrowser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.internet);
         WebView webView = (WebView) findViewById(R.id.webview);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
