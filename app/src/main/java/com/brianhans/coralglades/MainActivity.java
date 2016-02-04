@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity
             Home home = new Home();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, home, TWITTERTAG).commit();
         } else if (id == R.id.nav_map) {
-            Log.d("FragmentCalled", "Map");
             PictureView pictureView = new PictureView();
             Bundle args = new Bundle();
             args.putString("type", "map");
@@ -89,7 +88,14 @@ public class MainActivity extends AppCompatActivity
             args.putString("site", "vc");
             web.setArguments(args);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, web).commit();
-        } else if (id == R.id.nav_about) {
+        }else if (id == R.id.nav_cal) {
+            PictureView pictureView = new PictureView();
+            Bundle args = new Bundle();
+            args.putString("type", "calendar");
+            pictureView.setArguments(args);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, pictureView).commit();
+        }
+        else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, About.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) {

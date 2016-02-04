@@ -52,11 +52,13 @@ public class Home extends Fragment {
     private Context context;
     private boolean webpage;
     private WebView webView;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home, container, false);
         setRetainInstance(true);
+        this.view = view;
         return view;
     }
 
@@ -133,9 +135,11 @@ public class Home extends Fragment {
     }
 
     public void stopRefreshing() {
-        SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe);
-        if (refreshLayout.isRefreshing()) {
-            refreshLayout.setRefreshing(false);
+        if(view.isActivated()) {
+            SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+            if (refreshLayout.isRefreshing()) {
+                refreshLayout.setRefreshing(false);
+            }
         }
     }
 
@@ -143,9 +147,9 @@ public class Home extends Fragment {
     private class GetUserTimeline extends AsyncTask<List<String>, Void, List<Status>> {
 
         final static String CONSUMER_KEY = "T6rCfkVNRlbZyaaT4VEogAv9C";
-        final static String CONSUMER_SECRET = "************************************************";
+        final static String CONSUMER_SECRET = "pMK5pKidLZJCjxwFeP3G09pspqVWR7hmX3eahLe0URhLZbD4Mv";
         final static String ACCESS_TOKEN = "1239035221-1Ti1dwtyCCkd7hbl9PLLt8I5WEWlHYIwu6qJuDm";
-        final static String ACCESS_SECRET = "***********************************************";
+        final static String ACCESS_SECRET = "OB1XrZCxWUK17EIIuTZ0QsERFWCK3zwgTF9detGALssvI";
 
         List<String> users = new ArrayList<>();
         RelativeLayout loadingSpinner = (RelativeLayout) getActivity().findViewById(R.id.loading_circle);
