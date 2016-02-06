@@ -22,11 +22,10 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.brianhans.coralglades.CustomComparator;
-import com.brianhans.coralglades.R;
 import com.brianhans.coralglades.CustomRecycleAdapter;
+import com.brianhans.coralglades.R;
 import com.brianhans.coralglades.UserSelect;
 
 import java.util.ArrayList;

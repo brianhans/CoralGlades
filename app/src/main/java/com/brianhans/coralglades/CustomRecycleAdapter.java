@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -26,9 +25,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
@@ -37,8 +33,6 @@ import java.util.List;
 
 import twitter4j.MediaEntity;
 import twitter4j.Status;
-import twitter4j.URLEntity;
-import twitter4j.json.DataObjectFactory;
 
 /**
  * Created by Brian on 11/21/2015.

@@ -5,17 +5,15 @@ package com.brianhans.coralglades.views;
  */
 
 import android.content.Context;
+import android.graphics.Matrix;
+import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
 import android.util.Log;
-import android.content.Context;
-        import android.graphics.Matrix;
-        import android.graphics.PointF;
-        import android.graphics.drawable.Drawable;
-        import android.util.AttributeSet;
-        import android.util.Log;
-        import android.view.MotionEvent;
-        import android.view.ScaleGestureDetector;
-        import android.view.View;
-        import android.widget.ImageView;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
+import android.view.View;
+import android.widget.ImageView;
 
 public class TouchImageView extends ImageView {
 
