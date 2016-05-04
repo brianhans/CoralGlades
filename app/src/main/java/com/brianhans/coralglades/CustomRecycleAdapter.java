@@ -7,7 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -19,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,13 +47,15 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
 
     private List<Status> tweetList;
     private Context context;
+    private Fragment fragment;
     private Hashtable<String, Bitmap> downloadedImages = new Hashtable<>();
     private boolean pictures;
 
 
-    public CustomRecycleAdapter(Context context, List<Status> tweetList) {
+    public CustomRecycleAdapter(Context context, List<Status> tweetList, Fragment fragment) {
         this.context = context;
         this.tweetList = tweetList;
+        this.fragment = fragment;
         scale = context.getResources().getDisplayMetrics().density;
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         pictures = pref.getBoolean("pictures", true);
@@ -66,7 +72,7 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int i) {
         Status tweet = tweetList.get(i);
-        MediaEntity[] images = tweet.getExtendedMediaEntities();
+        final MediaEntity[] images = tweet.getExtendedMediaEntities();
 
         new DownloadImage(holder.profilePicture).execute(tweet.getUser().getOriginalProfileImageURL());
         Log.d("Media", images.length + "");
@@ -78,27 +84,51 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
             holder.imageHolder.removeAllViewsInLayout();
 
 
-            for(int f =0; f < images.length; f++){
-                Log.d("Media", images[f].getMediaURL());
-                Uri uri = Uri.parse(images[f].getMediaURL());
+            //for(int f =0; f < images.length; f++){
+                //Log.d("Media", images[f].getMediaURL());
+                Uri uri = Uri.parse(images[0].getMediaURL());
                 ImageView picture = new ImageView(context);
 
                 //Sets images parameters
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                 //Adds a right margin of 20dp
-                if(f != images.length - 1){
-                    int rightMargin = (int) (20 * scale + 0.5f);
-                    params.setMargins(0,0,rightMargin,0);
-                }
+                //if(f != images.length - 1){
+                //    int rightMargin = (int) (20 * scale + 0.5f);
+                //    params.setMargins(0,0,rightMargin,0);
+                //}
+                params.height = (int) (100 * scale + 0.5f);
+                params.width = (int) (100 * scale + 0.5f);
                 picture.setLayoutParams(params);
 
-                holder.imageHolder.addView(picture);
-                Glide.with(context).load(uri).into(picture);
+               // holder.imageHolder.addView(picture);
+                //Glide.with(context).load(uri).into(picture);
 
-            }
+                final ImageView thumb = holder.thumb;
+                thumb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("ImageViewer", "Clicked");
+                        FrameLayout imageViewer = (FrameLayout) thumb.getRootView().getRootView().getRootView().findViewById(R.id.photoViewer);
+                        imageViewer.setVisibility(View.VISIBLE);
+                        String[] urls = new String[images.length];
+                        for (int i = 0; i < images.length; i++){
+                            urls[i] = images[i].getMediaURL();
+                        }
+                        Fragment mpv = new MultiplePictureViewer();
+                        Bundle bundle = new Bundle();
+                        bundle.putStringArray("Urls", urls);
+                        mpv.setArguments(bundle);
+                        FragmentManager fragmentManager = fragment.getFragmentManager();
+                        fragmentManager.beginTransaction().add(R.id.photoViewer, mpv).commit();
+                    }
+                });
+                Glide.with(context).load(uri).into(thumb);
+
+           // }
 
         }else{
+            holder.thumb.setVisibility(View.GONE);
             holder.imageHolder.removeAllViewsInLayout();
             holder.imageHolder.setVisibility(View.GONE);
         }
@@ -157,6 +187,7 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         TextView date;
         TextView link;
         ImageView profilePicture;
+        ImageView thumb;
         LinearLayout imageHolder;
 
         MyViewHolder(View itemView) {
@@ -166,6 +197,7 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
             profilePicture = (ImageView) itemView.findViewById(R.id.profile_picture);
             userName = (TextView) itemView.findViewById(R.id.user);
             imageHolder = (LinearLayout) itemView.findViewById(R.id.imageHolder);
+            thumb = (ImageView) itemView.findViewById(R.id.thumb);
         }
     }
 

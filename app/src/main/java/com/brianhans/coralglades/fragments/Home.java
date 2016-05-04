@@ -45,6 +45,7 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class Home extends Fragment {
 
+    private final static String TAG = "Home";
     private ArrayList<String> accounts;
     private RecyclerView cardHolder;
     private CustomRecycleAdapter recycleAdapter;
@@ -109,7 +110,7 @@ public class Home extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }else {
                 GetUserTimeline getTweets = new GetUserTimeline();
-                getTweets.execute(accounts);
+                getTweets.execute(accounts, this);
             }
         }else{
             Snackbar snackbar = Snackbar.make(refreshLayout, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("RETRY", new View.OnClickListener() {
@@ -134,7 +135,7 @@ public class Home extends Fragment {
     }
 
     public void stopRefreshing() {
-        if(view.isActivated()) {
+        if(cardHolder.isEnabled()) {
             SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
             if (refreshLayout.isRefreshing()) {
                 refreshLayout.setRefreshing(false);
@@ -143,7 +144,7 @@ public class Home extends Fragment {
     }
 
 
-    private class GetUserTimeline extends AsyncTask<List<String>, Void, List<Status>> {
+    private class GetUserTimeline extends AsyncTask<Object, Void, List<Status>> {
 
         final static String CONSUMER_KEY = "T6rCfkVNRlbZyaaT4VEogAv9C";
         final static String CONSUMER_SECRET = "pMK5pKidLZJCjxwFeP3G09pspqVWR7hmX3eahLe0URhLZbD4Mv";
@@ -152,7 +153,7 @@ public class Home extends Fragment {
 
         List<String> users = new ArrayList<>();
         RelativeLayout loadingSpinner = (RelativeLayout) getActivity().findViewById(R.id.loading_circle);
-
+        Fragment fragment;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -161,8 +162,9 @@ public class Home extends Fragment {
             loadingSpinner.setVisibility(View.VISIBLE);
         }
 
-        protected List<twitter4j.Status> doInBackground(List<String>... params) {
-            users = params[0];
+        protected List<twitter4j.Status> doInBackground(Object... params) {
+            users = (List<String>)params[0];
+            fragment = (Fragment)params[1];
 
             ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true);
@@ -202,11 +204,10 @@ public class Home extends Fragment {
         protected void onPostExecute(List<twitter4j.Status> stats) {
 
             loadingSpinner.setVisibility(View.GONE);
-
+            stopRefreshing();
             if (stats == null) {
                 //Displays web version of twitter feed
                 cardHolder.removeAllViewsInLayout();
-                stopRefreshing();
                 InternetTwitter fragment = new InternetTwitter();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 CoordinatorLayout mMainLayout = (CoordinatorLayout) getActivity().findViewById(R.id.main_layout);
@@ -217,10 +218,9 @@ public class Home extends Fragment {
                 cardHolder.removeAllViewsInLayout();
                 cardHolder.setVisibility(View.VISIBLE);
                 //Adds Cards to screen
-                recycleAdapter = new CustomRecycleAdapter(context, stats);
+                recycleAdapter = new CustomRecycleAdapter(context, stats, fragment);
                 AlphaInAnimationAdapter adapter = new AlphaInAnimationAdapter(recycleAdapter);
                 cardHolder.setAdapter(new SlideInBottomAnimationAdapter(adapter));
-                stopRefreshing();
             }
         }
 

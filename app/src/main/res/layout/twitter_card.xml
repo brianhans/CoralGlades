@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android.support.v7.cardview="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     android:id="@+id/twitterCard"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android.support.v7.cardview:cardBackgroundColor="#FFFFFF"
-    android.support.v7.cardview:cardCornerRadius="3dp"
-    android.support.v7.cardview:cardElevation="3dp"
-    android.support.v7.cardview:cardUseCompatPadding="true">
+    android:background="@drawable/border"
+    android:paddingBottom="20dp"
+    android:paddingTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,31 +15,90 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
-            android:gravity="right">
+            android:gravity="left">
 
-            <TextView
-                android:id="@+id/user"
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:gravity="right"
-                android:text="User"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/profile_picture"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginTop="2dp"
-                android:scaleType="fitCenter" />
+                <ImageView
+                    android:id="@+id/profile_picture"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="2dp"
+                    android:scaleType="fitCenter"/>
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/frame"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="3dp"
+                        android:text="User"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom|end"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Date"
+                        android:textSize="12sp"
+                        android:layout_gravity="bottom"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="16dp"
+                    android:weightSum="4">
+                <TextView
+                    android:id="@+id/tweet_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_marginBottom="4dp"
+                    android:linksClickable="false"
+                    android:text="tweet message"
+                    android:textColorLink="@color/colorPrimary"
+                    android:textSize="16sp"/>
+                    <ImageView
+                        android:id="@+id/thumb"
+                        android:layout_weight="1"
+                        android:layout_width="100dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -50,17 +106,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tweet_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:linksClickable="false"
-                android:text="tweet message"
-                android:textColorLink="@color/colorPrimary" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -80,19 +125,7 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="2dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Date"
-                android:textSize="10sp" />
         </LinearLayout>
 
     </LinearLayout>
-
-</android.support.v7.widget.CardView>
+</LinearLayout>
