@@ -79,61 +79,44 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
 
 
         if (pictures && images.length > 0) {
+            holder.thumb.setVisibility(View.VISIBLE);
 
-            holder.imageHolder.setVisibility(View.VISIBLE);
-            holder.imageHolder.removeAllViewsInLayout();
+            Uri uri = Uri.parse(images[0].getMediaURL());
+            ImageView picture = new ImageView(context);
 
+            //Sets images parameters
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.height = (int) (100 * scale + 0.5f);
+            params.width = (int) (100 * scale + 0.5f);
+            picture.setLayoutParams(params);
 
-            //for(int f =0; f < images.length; f++){
-                //Log.d("Media", images[f].getMediaURL());
-                Uri uri = Uri.parse(images[0].getMediaURL());
-                ImageView picture = new ImageView(context);
-
-                //Sets images parameters
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-                //Adds a right margin of 20dp
-                //if(f != images.length - 1){
-                //    int rightMargin = (int) (20 * scale + 0.5f);
-                //    params.setMargins(0,0,rightMargin,0);
-                //}
-                params.height = (int) (100 * scale + 0.5f);
-                params.width = (int) (100 * scale + 0.5f);
-                picture.setLayoutParams(params);
-
-               // holder.imageHolder.addView(picture);
-                //Glide.with(context).load(uri).into(picture);
-
-                final ImageView thumb = holder.thumb;
-                thumb.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("ImageViewer", "Clicked");
-                        FrameLayout imageViewer = (FrameLayout) thumb.getRootView().getRootView().getRootView().findViewById(R.id.photoViewer);
-                        imageViewer.setVisibility(View.VISIBLE);
-                        String[] urls = new String[images.length];
-                        for (int i = 0; i < images.length; i++){
-                            urls[i] = images[i].getMediaURL();
-                        }
-                        Fragment mpv = new MultiplePictureViewer();
-                        Bundle bundle = new Bundle();
-                        bundle.putStringArray("Urls", urls);
-                        mpv.setArguments(bundle);
-                        FragmentManager fragmentManager = fragment.getFragmentManager();
-                        fragmentManager.beginTransaction().add(R.id.photoViewer, mpv).commit();
+            final ImageView thumb = holder.thumb;
+            thumb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("ImageViewer", "Clicked");
+                    FrameLayout imageViewer = (FrameLayout) thumb.getRootView().getRootView().getRootView().findViewById(R.id.photoViewer);
+                    imageViewer.setVisibility(View.VISIBLE);
+                    String[] urls = new String[images.length];
+                    for (int i = 0; i < images.length; i++) {
+                        urls[i] = images[i].getMediaURL();
                     }
-                });
-                Glide.with(context).load(uri).into(thumb);
+                    Fragment mpv = new MultiplePictureViewer();
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArray("Urls", urls);
+                    mpv.setArguments(bundle);
+                    FragmentManager fragmentManager = fragment.getFragmentManager();
+                    fragmentManager.beginTransaction().add(R.id.photoViewer, mpv).commit();
+                }
+            });
+            Glide.with(context).load(uri).into(thumb);
 
-           // }
+            // }
 
-        }else{
+        } else {
             holder.thumb.setVisibility(View.GONE);
-            holder.imageHolder.removeAllViewsInLayout();
-            holder.imageHolder.setVisibility(View.GONE);
         }
 
-        //holder.tweetText.setText(tweet.getText());
         holder.tweetText.setMovementMethod(LinkMovementMethod.getInstance());
         addTweetText(holder.tweetText, tweet);
 
@@ -144,7 +127,7 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         holder.userName.setText(tweet.getUser().getName());
     }
 
-    private void addTweetText(TextView text, Status tweet){
+    private void addTweetText(TextView text, Status tweet) {
         String contents = tweet.getText();
         text.setText(tweet.getText());
         Linkify.addLinks(text, Linkify.WEB_URLS);
@@ -158,14 +141,14 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         text.setText(stringBuilder);
     }
 
-    private void makeLinksClickable(SpannableStringBuilder stringBuilder, final URLSpan url){
+    private void makeLinksClickable(SpannableStringBuilder stringBuilder, final URLSpan url) {
         int start = stringBuilder.toString().indexOf(url.getURL().toString());
         int end = start + url.getURL().toString().length();
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                TextView textView = (TextView)widget;
-                Spanned contents = (Spanned)textView.getText();
+                TextView textView = (TextView) widget;
+                Spanned contents = (Spanned) textView.getText();
                 String url = contents.subSequence(contents.getSpanStart(this), contents.getSpanEnd(this)) + "";
                 Intent intent = new Intent(context, CustomBrowser.class);
                 intent.putExtra("url", url);
@@ -185,10 +168,8 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         TextView userName;
         TextView tweetText;
         TextView date;
-        TextView link;
         ImageView profilePicture;
         ImageView thumb;
-        LinearLayout imageHolder;
 
         MyViewHolder(View itemView) {
             super(itemView);
@@ -196,7 +177,6 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
             date = (TextView) itemView.findViewById(R.id.date);
             profilePicture = (ImageView) itemView.findViewById(R.id.profile_picture);
             userName = (TextView) itemView.findViewById(R.id.user);
-            imageHolder = (LinearLayout) itemView.findViewById(R.id.imageHolder);
             thumb = (ImageView) itemView.findViewById(R.id.thumb);
         }
     }
