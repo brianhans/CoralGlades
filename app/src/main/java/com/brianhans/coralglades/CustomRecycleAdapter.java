@@ -29,22 +29,31 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.Duration;
+import org.joda.time.Interval;
+import org.joda.time.LocalDate;
+import org.joda.time.ReadableDuration;
+
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
 import twitter4j.MediaEntity;
 import twitter4j.Status;
+import twitter4j.URLEntity;
 
 /**
  * Created by Brian on 11/21/2015.
  */
 public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdapter.MyViewHolder> {
 
+    private final static String TAG = "cardCreator";
     private float scale;
-
     private List<Status> tweetList;
     private Context context;
     private Fragment fragment;
@@ -76,7 +85,6 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
 
         new DownloadImage(holder.profilePicture).execute(tweet.getUser().getOriginalProfileImageURL());
         Log.d("Media", images.length + "");
-
 
         if (pictures && images.length > 0) {
             holder.thumb.setVisibility(View.VISIBLE);
@@ -111,8 +119,6 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
             });
             Glide.with(context).load(uri).into(thumb);
 
-            // }
-
         } else {
             holder.thumb.setVisibility(View.GONE);
         }
@@ -120,8 +126,22 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
         holder.tweetText.setMovementMethod(LinkMovementMethod.getInstance());
         addTweetText(holder.tweetText, tweet);
 
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        String date = dateFormat.format(tweet.getCreatedAt());
+        Duration difference = new Duration(tweet.getCreatedAt().getTime(), System.currentTimeMillis());
+        int hours = difference.toStandardHours().getHours();
+        String date = "";
+        LocalDate today = new LocalDate().minusWeeks(1);
+        if(hours < 1){
+            if(difference.getStandardMinutes() < 0)
+                date = difference.getStandardSeconds() + " s";
+            else
+                date = difference.getStandardMinutes() + " m";
+        }else if (hours < 24){
+            date = hours + " h";
+        }else if(difference.isShorterThan(Duration.standardDays(7))){
+            date =  difference.getStandardDays() + " d";
+        }else{
+            date = new DateTime(tweet.getCreatedAt()).toString("MM:dd");
+        }
         holder.date.setText(date);
 
         holder.userName.setText(tweet.getUser().getName());
@@ -129,7 +149,20 @@ public class CustomRecycleAdapter extends RecyclerView.Adapter<CustomRecycleAdap
 
     private void addTweetText(TextView text, Status tweet) {
         String contents = tweet.getText();
-        text.setText(tweet.getText());
+        Log.d(TAG, "addTweetText: " + contents);
+        if(contents.contains("…")){
+            for(int i = contents.indexOf("…"); i > 0; i--){
+                if(contents.charAt(i) == ' '){
+                    contents = contents.substring(0, i);
+                    for(URLEntity url :tweet.getURLEntities()){
+                        contents += " " + url.getURL();
+                    }
+                    break;
+                }
+            }
+
+        }
+        text.setText(contents);
         Linkify.addLinks(text, Linkify.WEB_URLS);
 
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder(contents);

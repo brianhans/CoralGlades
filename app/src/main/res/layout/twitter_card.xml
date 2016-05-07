@@ -68,9 +68,9 @@
                         android:gravity="bottom|end"
                         android:layout_marginBottom="2dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="16dp"
                         android:text="Date"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
 

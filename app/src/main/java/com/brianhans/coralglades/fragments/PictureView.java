@@ -2,6 +2,7 @@ package com.brianhans.coralglades.fragments;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,7 @@ public class PictureView extends Fragment
 
         if(type.equals("map")) {
             img.setImageResource(R.drawable.schoolmap);
+            view.setBackgroundColor(Color.WHITE);
         }else if(type.equals("calendar"))
         {
             img.setImageResource(R.drawable.calendar);

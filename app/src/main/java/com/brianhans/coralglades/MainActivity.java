@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        navigationView.getMenu().getItem(0).setChecked(true);
         Home home = new Home();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, home, TWITTERTAG).commit();
     }
