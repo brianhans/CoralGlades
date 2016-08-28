@@ -42,6 +42,7 @@
         <item>Pinnacle</item>
         <item>BEEP</item>
         <item>Virtual Counselor</item>
+        <item>Bell Schedule</item>
         <item>Settings</item>
         <item>About</item>
     </string-array>
@@ -52,6 +53,7 @@
         <item>@drawable/calendar_icon</item>
         <item>@drawable/pinnacle</item>
         <item>@drawable/beep</item>
+        <item>@drawable/vc</item>
         <item>@drawable/vc</item>
         <item>@drawable/settings</item>
         <item>@drawable/help</item>

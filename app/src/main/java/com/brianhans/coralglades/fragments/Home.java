@@ -23,6 +23,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
+import com.brianhans.coralglades.Constants;
 import com.brianhans.coralglades.CustomComparator;
 import com.brianhans.coralglades.CustomRecycleAdapter;
 import com.brianhans.coralglades.R;
@@ -145,12 +146,6 @@ public class Home extends Fragment {
 
 
     private class GetUserTimeline extends AsyncTask<Object, Void, List<Status>> {
-
-        final static String CONSUMER_KEY = "T6rCfkVNRlbZyaaT4VEogAv9C";
-        final static String CONSUMER_SECRET = "pMK5pKidLZJCjxwFeP3G09pspqVWR7hmX3eahLe0URhLZbD4Mv";
-        final static String ACCESS_TOKEN = "1239035221-1Ti1dwtyCCkd7hbl9PLLt8I5WEWlHYIwu6qJuDm";
-        final static String ACCESS_SECRET = "OB1XrZCxWUK17EIIuTZ0QsERFWCK3zwgTF9detGALssvI";
-
         List<String> users = new ArrayList<>();
         RelativeLayout loadingSpinner = (RelativeLayout) getActivity().findViewById(R.id.loading_circle);
         Fragment fragment;
@@ -168,15 +163,14 @@ public class Home extends Fragment {
 
             ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true);
-            cb.setOAuthConsumerKey(CONSUMER_KEY);
-            cb.setOAuthConsumerSecret(CONSUMER_SECRET);
-            cb.setOAuthAccessToken(ACCESS_TOKEN);
-            cb.setOAuthAccessTokenSecret(ACCESS_SECRET);
+            cb.setOAuthConsumerKey(Constants.KEY);
+            cb.setOAuthConsumerSecret(Constants.SECRET);
+            cb.setOAuthAccessToken(Constants.ACCESS_TOKEN);
+            cb.setOAuthAccessTokenSecret(Constants.ACCESS_SECRET);
 
             Twitter twitter = new TwitterFactory(cb.build()).getInstance();
 
             try {
-                Log.d("TEST", "try");
                 List<List<twitter4j.Status>> tweetList = new ArrayList<>();
                 Log.d("limit", "Rate Limit: " + twitter.getUserTimeline().getRateLimitStatus().getRemaining());
 
@@ -184,8 +178,8 @@ public class Home extends Fragment {
                 if (twitter.getUserTimeline().getRateLimitStatus().getRemaining() == 0) {
                     return null;
                 }
+
                 for (String user : users) {
-                    Log.d("user", user);
                     List<twitter4j.Status> tweets = twitter.getUserTimeline(user);
                     tweetList.add(tweets);
                 }

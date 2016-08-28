@@ -127,6 +127,7 @@
                         android:layout_width="95dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
+                        style="?android:attr/borderlessButtonStyle"
                         android:text="Done"
                         android:textAllCaps="false"
                         android:textSize="17sp" />

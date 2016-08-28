@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.brianhans.coralglades.fragments.BellFragment;
 import com.brianhans.coralglades.fragments.Home;
 import com.brianhans.coralglades.fragments.Internet;
 import com.brianhans.coralglades.fragments.PictureView;
@@ -93,6 +94,9 @@ public class MainActivity extends AppCompatActivity
             args.putString("type", "calendar");
             pictureView.setArguments(args);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, pictureView).commit();
+        }else if(id == R.id.bell){
+            BellFragment fragment = new BellFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
         else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, About.class);
